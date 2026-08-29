@@ -1,0 +1,87 @@
+/* ==========================================================================
+   projetos.css — Estilos específicos da tela "Projetos" (Carnegie Imóveis)
+   Depende de clientes.css para os tokens e componentes compartilhados
+   (content, table-section, table, badge, table__action-btn, table__empty).
+   Aqui ficam apenas os ajustes e badges próprios desta tela.
+   ========================================================================== */
+/* ---- Tabela: colunas mais largas para caber orçamento/cliente ---------- */
+
+.table {
+  min-width: 960px;
+}
+
+.table__cell--wrap {
+  white-space: normal;
+  min-width: 220px;
+}
+
+/* ---- Badges de status do projeto ---------------------------------------- */
+
+.badge--em-andamento {
+  color: #9db6dd;
+  background-color: rgba(92, 123, 168, 0.16);
+  border-color: rgba(92, 123, 168, 0.35);
+}
+
+.badge--concluido {
+  color: #8fd0c3;
+  background-color: rgba(58, 168, 141, 0.14);
+  border-color: rgba(58, 168, 141, 0.32);
+}
+
+.badge--pausado {
+  color: #e0c48f;
+  background-color: rgba(191, 148, 58, 0.14);
+  border-color: rgba(191, 148, 58, 0.32);
+}
+
+.badge--cancelado {
+  color: #e29a9a;
+  background-color: rgba(191, 74, 74, 0.14);
+  border-color: rgba(191, 74, 74, 0.32);
+}
+
+/* ---- Badges de "Obra" (sim / não) ---------------------------------------- */
+
+.badge--sim {
+  color: #8fd0c3;
+  background-color: rgba(58, 168, 141, 0.14);
+  border-color: rgba(58, 168, 141, 0.32);
+}
+
+.badge--nao {
+  color: var(--color-gray-500);
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: var(--color-border);
+}
+
+/* ---- Botão "Novo projeto" no cabeçalho do conteúdo ----------------------- */
+
+.content__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.content__new-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid var(--color-blue);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.content__new-btn:hover {
+  background-color: var(--color-blue-dark);
+  border-color: var(--color-blue-dark);
+}

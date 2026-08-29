@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sistema Carnegie — Cadastrar empresa</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+
+  .page {
+    --color-bg: #ffffff;
+    --color-accent: #1a2370;
+    --color-accent-hover: #14195c;
+    --color-text: #17181c;
+    --color-text-muted: #6b7280;
+    --color-border: #d7d9dc;
+    --color-input-bg: #ffffff;
+    --color-error: #c62828;
+    --radius-input: 8px;
+    --radius-button: 8px;
+
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg);
+    padding: 24px;
+  }
+
+  .formInner {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin: 0 0 32px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .input {
+    height: 44px;
+    border-radius: var(--radius-input);
+    border: 1px solid var(--color-border);
+    background: var(--color-input-bg);
+    color: var(--color-text);
+    padding: 0 14px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(26, 35, 112, 0.15);
+  }
+
+  .input[aria-invalid="true"] {
+    border-color: var(--color-error);
+  }
+
+  .fieldError {
+    font-size: 12px;
+    color: var(--color-error);
+    display: none;
+  }
+
+  .fieldError.visible {
+    display: block;
+  }
+
+  .formError {
+    font-size: 12px;
+    color: var(--color-error);
+    margin: 0 0 16px;
+    display: none;
+  }
+
+  .formError.visible {
+    display: block;
+  }
+
+  .button {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-radius: var(--radius-button);
+    background: var(--color-accent);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .button:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+  }
+
+  .button:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .signupText {
+    margin: 18px 0 0;
+    font-size: 13px;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  .signupLink {
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .signupLink:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <main class="formInner">
+      <h1 class="title">Cadastrar empresa</h1>
+      <p class="subtitle">Sistema Carnegie</p>
+
+      <form id="registerForm" novalidate>
+        <div class="field">
+          <label class="label" for="companyName">Nome da empresa</label>
+          <input class="input" id="companyName" name="companyName" type="text" autocomplete="organization" />
+          <span class="fieldError" id="companyName-error"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="accessCode">Código de acesso (5 caracteres)</label>
+          <input class="input" id="accessCode" name="accessCode" type="text" maxlength="5" autocomplete="off" />
+          <span class="fieldError" id="accessCode-error"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="fullName">Seu nome</label>
+          <input class="input" id="fullName" name="fullName" type="text" autocomplete="name" />
+          <span class="fieldError" id="fullName-error"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="email">Seu email</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="email" />
+          <span class="fieldError" id="email-error"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="password">Senha</label>
+          <input class="input" id="password" name="password" type="password" autocomplete="new-password" />
+          <span class="fieldError" id="password-error"></span>
+        </div>
+
+        <p class="formError" id="form-error" role="alert"></p>
+
+        <button class="button" type="submit" id="submitBtn">Cadastrar</button>
+
+        <p class="signupText">Já tem uma conta? <a class="signupLink" href="login.html">Entrar</a></p>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    // Sem backend ainda: o submit é mockado (simula um request e loga no console).
+    // Quando o backend existir, trocar a função fakeRegister pela chamada real (fetch/etc).
+
+    function isValidEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function fakeRegister(payload) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (payload.companyName && payload.accessCode && payload.fullName && payload.email && payload.password) {
+            resolve({ ok: true });
+          } else {
+            reject(new Error("Dados inválidos"));
+          }
+        }, 700);
+      });
+    }
+
+    const form = document.getElementById("registerForm");
+
+    const companyNameInput = document.getElementById("companyName");
+    const accessCodeInput = document.getElementById("accessCode");
+    const fullNameInput = document.getElementById("fullName");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+
+    const companyNameError = document.getElementById("companyName-error");
+    const accessCodeError = document.getElementById("accessCode-error");
+    const fullNameError = document.getElementById("fullName-error");
+    const emailError = document.getElementById("email-error");
+    const passwordError = document.getElementById("password-error");
+
+    const formError = document.getElementById("form-error");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function setFieldError(input, errorEl, message) {
+      if (message) {
+        input.setAttribute("aria-invalid", "true");
+        errorEl.textContent = message;
+        errorEl.classList.add("visible");
+      } else {
+        input.removeAttribute("aria-invalid");
+        errorEl.textContent = "";
+        errorEl.classList.remove("visible");
+      }
+    }
+
+    function validate() {
+      let valid = true;
+
+      if (!companyNameInput.value.trim()) {
+        setFieldError(companyNameInput, companyNameError, "Informe o nome da empresa");
+        valid = false;
+      } else {
+        setFieldError(companyNameInput, companyNameError, "");
+      }
+
+      if (!accessCodeInput.value.trim()) {
+        setFieldError(accessCodeInput, accessCodeError, "Informe o código de acesso");
+        valid = false;
+      } else if (accessCodeInput.value.trim().length !== 5) {
+        setFieldError(accessCodeInput, accessCodeError, "O código deve ter 5 caracteres");
+        valid = false;
+      } else {
+        setFieldError(accessCodeInput, accessCodeError, "");
+      }
+
+      if (!fullNameInput.value.trim()) {
+        setFieldError(fullNameInput, fullNameError, "Informe seu nome");
+        valid = false;
+      } else {
+        setFieldError(fullNameInput, fullNameError, "");
+      }
+
+      if (!emailInput.value.trim()) {
+        setFieldError(emailInput, emailError, "Informe o e-mail");
+        valid = false;
+      } else if (!isValidEmail(emailInput.value)) {
+        setFieldError(emailInput, emailError, "E-mail inválido");
+        valid = false;
+      } else {
+        setFieldError(emailInput, emailError, "");
+      }
+
+      if (!passwordInput.value) {
+        setFieldError(passwordInput, passwordError, "Informe a senha");
+        valid = false;
+      } else {
+        setFieldError(passwordInput, passwordError, "");
+      }
+
+      return valid;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      formError.textContent = "";
+      formError.classList.remove("visible");
+
+      if (!validate()) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Cadastrando...";
+
+      try {
+        // TODO: trocar por chamada real ao backend quando ele existir
+        await fakeRegister({
+          companyName: companyNameInput.value,
+          accessCode: accessCodeInput.value,
+          fullName: fullNameInput.value,
+          email: emailInput.value,
+          password: passwordInput.value,
+        });
+        // TODO: redirecionar para o login ou autenticar direto
+        alert("Cadastro OK (mock) — sem backend ainda, isso não cadastrou de verdade.");
+      } catch (err) {
+        formError.textContent = "Não foi possível cadastrar. Confira os dados informados.";
+        formError.classList.add("visible");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Cadastrar";
+      }
+    });
+  </script>
+</body>
+</html>

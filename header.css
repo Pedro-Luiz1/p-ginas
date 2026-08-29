@@ -1,0 +1,89 @@
+/* ==========================================================================
+   header.css — Componente de header (Carnegie Imóveis)
+   Depende dos tokens abaixo. Se este arquivo for usado em uma página que já
+   define esses tokens em outro CSS (ex.: sidebar.css), este bloco pode ser
+   removido daqui sem problema — os valores são os mesmos.
+   ========================================================================== */
+
+:root {
+  --color-black: #0d0e10;
+  --color-charcoal: #1d2025;
+  --color-border: #33373f;
+  --color-blue: #2e4d7b;
+  --color-blue-light: #5c7ba8;
+  --color-white: #ffffff;
+  --color-gray-500: #8a8f98;
+  --header-height: 64px;
+  --font-base: "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Header — fixo no topo
+   ========================================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* garante que o header fique por cima de outros elementos */
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--header-height);
+  padding: 0 24px;
+  background-color: var(--color-black);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  font-family: var(--font-base);
+}
+
+/* ---- Marca (logo + nome) ------------------------------------------- */
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.header__logo {
+  height: 38px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+.header__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.header__brand-name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-white);
+}
+
+.header__brand-sub {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-gray-500);
+}
+
+/* ==========================================================================
+   Compensação do espaço do header fixo
+   Como o header saiu do fluxo normal da página (position: fixed), o restante
+   do conteúdo precisa de um respiro no topo do tamanho do header — senão
+   títulos, a sidebar, etc. ficam escondidos atrás dele.
+   ========================================================================== */
+
+body {
+  padding-top: var(--header-height);
+}

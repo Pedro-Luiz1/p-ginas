@@ -1,0 +1,15 @@
+/* ==========================================================================
+   minha-conta.css — Estilos específicos da tela "Minha Conta" (Carnegie Imóveis)
+   Reaproveita integralmente os componentes de usuarios.css (form-card,
+   form-field, botões etc.) e acrescenta apenas ajustes de layout desta tela,
+   que empilha 3 cards de formulário em coluna única.
+   ========================================================================== */
+
+.content--account .form-card {
+  max-width: 640px;
+}
+
+/* Nesta tela todos os campos ocupam a linha inteira (coluna única) */
+.content--account .user-form {
+  grid-template-columns: 1fr;
+}

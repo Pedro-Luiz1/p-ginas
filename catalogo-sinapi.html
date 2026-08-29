@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo SINAPI | Carnegie Imóveis</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="catalogo-sinapi.css">
+</head>
+<body>
+
+  <!-- Header fixo: logo + nome da marca -->
+  <header class="header">
+    <div class="header__brand">
+      <img class="header__logo" src="logo-carnegie.png" alt="Carnegie Imóveis">
+      <div class="header__brand-text">
+        <span class="header__brand-name">CARNEGIE</span>
+        <span class="header__brand-sub">Imóveis</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- Sidebar fixa, com grupos clicáveis (accordion) -->
+    <aside class="sidebar">
+
+      <nav class="sidebar__nav">
+
+        <div class="sidebar__section">
+          <button class="sidebar__section-toggle" type="button" aria-expanded="false">
+            Comercial
+            <span class="sidebar__section-chevron">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </button>
+          <ul class="sidebar__list">
+            <li><a class="sidebar__link" href="#">Clientes</a></li>
+            <li><a class="sidebar__link" href="#">Leads</a></li>
+            <li><a class="sidebar__link" href="#">Orçamentos</a></li>
+            <li><a class="sidebar__link" href="#">Contratos</a></li>
+          </ul>
+        </div>
+
+        <!-- Grupo atual (Catálogo SINAPI) já aberto ao carregar a página -->
+        <div class="sidebar__section">
+          <button class="sidebar__section-toggle" type="button" aria-expanded="true">
+            Compras &amp; Estoque
+            <span class="sidebar__section-chevron">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </button>
+          <ul class="sidebar__list sidebar__list--open">
+            <li><a class="sidebar__link" href="#">Compras</a></li>
+            <li><a class="sidebar__link" href="#">Fornecedores</a></li>
+            <li><a class="sidebar__link" href="#">Estoque</a></li>
+            <li><a class="sidebar__link" href="#">Inventários</a></li>
+            <li><a class="sidebar__link sidebar__link--active" href="#">Catálogo SINAPI</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar__section">
+          <button class="sidebar__section-toggle" type="button" aria-expanded="false">
+            Projetos
+            <span class="sidebar__section-chevron">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </button>
+          <ul class="sidebar__list">
+            <li><a class="sidebar__link" href="#">Projetos</a></li>
+            <li><a class="sidebar__link" href="#">Documentos</a></li>
+            <li><a class="sidebar__link" href="#">Categorias</a></li>
+            <li><a class="sidebar__link" href="#">Tipo de Construção</a></li>
+            <li><a class="sidebar__link" href="#">Tipo de Cômodo</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar__section">
+          <button class="sidebar__section-toggle" type="button" aria-expanded="false">
+            Administração
+            <span class="sidebar__section-chevron">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </button>
+          <ul class="sidebar__list">
+            <li><a class="sidebar__link" href="#">Cargos</a></li>
+            <li><a class="sidebar__link" href="#">Equipes</a></li>
+            <li><a class="sidebar__link" href="#">Usuários</a></li>
+            <li><a class="sidebar__link" href="#">Histórico</a></li>
+          </ul>
+        </div>
+
+      </nav>
+
+      <!-- Rodapé da sidebar: avatar + nome do usuário + menu (três barrinhas) -->
+      <div class="sidebar__footer">
+        <div class="sidebar__footer-bar">
+          <div class="sidebar__footer-user-info">
+            <div class="sidebar__footer-avatar">AT</div>
+            <div>
+              <p class="sidebar__footer-user">Admin Teste</p>
+              <p class="sidebar__footer-role">Administrador</p>
+            </div>
+          </div>
+          <div class="sidebar__footer-actions">
+            <a class="sidebar__footer-notif-btn" href="#" aria-label="Notificações">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </a>
+            <button class="sidebar__footer-menu-btn" type="button" id="sidebarFooterMenuBtn" aria-expanded="false" aria-label="Abrir menu do usuário">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="sidebar__footer-menu" id="sidebarFooterMenu">
+          <a class="sidebar__footer-link" href="#">Minha conta</a>
+          <button class="sidebar__footer-logout" type="button">Sair</button>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- Área principal -->
+    <main class="content">
+
+      <div class="content__header">
+        <div>
+          <p class="content__eyebrow">Compras &amp; Estoque</p>
+          <h1 class="content__title">Catálogo SINAPI</h1>
+          <p class="content__subtitle">Baixe o relatório mensal oficial da Caixa e mantenha os preços de referência atualizados.</p>
+        </div>
+      </div>
+
+      <!-- Bloco 1: atualização do catálogo -->
+      <section class="form-card">
+        <div class="form-card__header">
+          <h2 class="form-card__title">Atualizar Catálogo</h2>
+          <p class="form-card__desc">Baixa o relatório mensal oficial da Caixa e atualiza os preços de referência.</p>
+        </div>
+
+        <form class="filter-form">
+
+          <div class="form-field form-field--year">
+            <label class="form-field__label" for="ano">Ano</label>
+            <input class="form-field__input" type="number" id="ano" name="ano" value="2026">
+          </div>
+
+          <div class="form-field form-field--month">
+            <label class="form-field__label" for="mes">Mês</label>
+            <input class="form-field__input" type="number" id="mes" name="mes" value="7" min="1" max="12">
+          </div>
+
+          <div class="form-field form-field--tab">
+            <label class="form-field__label" for="aba">Aba</label>
+            <select class="form-field__select" id="aba" name="aba">
+              <option value="isd" selected>Insumos - Sem Desoneração (ISD)</option>
+              <option value="icd">Insumos - Com Desoneração (ICD)</option>
+              <option value="ise">Insumos - Sem Encargos (ISE)</option>
+              <option value="csd">Composições - Sem Desoneração (CSD)</option>
+              <option value="ccd">Composições - Com Desoneração (CCD)</option>
+              <option value="cse">Composições - Sem Encargos (CSE)</option>
+            </select>
+          </div>
+
+          <button class="form-card__submit" type="submit">Atualizar Catálogo</button>
+
+        </form>
+      </section>
+
+      <!-- Bloco 2: itens do catálogo -->
+      <section class="table-section">
+
+        <div class="table-section__header">
+          <div class="table-section__heading">
+            <h2 class="table-section__title">Itens do catálogo</h2>
+            <p class="table-section__count">3 itens encontrados</p>
+          </div>
+
+          <div class="table-section__toolbar">
+            <div class="table-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input class="table-search__input" type="text" id="busca" name="busca" placeholder="Busca (descrição ou código)">
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="table">
+            <thead class="table__head">
+              <tr class="table__row">
+                <th class="table__cell table__cell--head table__cell--sortable" data-sort-dir="none">
+                  <span class="table__sort-label">
+                    Código
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </span>
+                </th>
+                <th class="table__cell table__cell--head table__cell--wrap">Descrição</th>
+                <th class="table__cell table__cell--head">Tipo</th>
+                <th class="table__cell table__cell--head">Unidade</th>
+                <th class="table__cell table__cell--head">UF</th>
+                <th class="table__cell table__cell--head">Regime</th>
+                <th class="table__cell table__cell--head table__cell--sortable" data-sort-dir="none">
+                  <span class="table__sort-label">
+                    Preço de referência
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </span>
+                </th>
+                <th class="table__cell table__cell--head">Mês de referência</th>
+              </tr>
+            </thead>
+            <tbody class="table__body">
+              <tr class="table__row">
+                <td class="table__cell">45333</td>
+                <td class="table__cell table__cell--wrap">ABERTURA PARA ENCAIXE DE CUBA OU LAVATORIO EM BANCADA DE MARMORE/ GRANITO OU OUTRO TIPO DE PEDRA NATURAL</td>
+                <td class="table__cell">Insumo</td>
+                <td class="table__cell">UN</td>
+                <td class="table__cell">SP</td>
+                <td class="table__cell"><span class="badge badge--sem-desoneracao">Sem Desoneração</span></td>
+                <td class="table__cell">R$ 201,57</td>
+                <td class="table__cell">2026-07</td>
+              </tr>
+              <tr class="table__row">
+                <td class="table__cell">45333</td>
+                <td class="table__cell table__cell--wrap">ABERTURA PARA ENCAIXE DE CUBA OU LAVATORIO EM BANCADA DE MARMORE/ GRANITO OU OUTRO TIPO DE PEDRA NATURAL</td>
+                <td class="table__cell">Insumo</td>
+                <td class="table__cell">UN</td>
+                <td class="table__cell">SP</td>
+                <td class="table__cell"><span class="badge badge--com-desoneracao">Com Desoneração</span></td>
+                <td class="table__cell">R$ 201,57</td>
+                <td class="table__cell">2026-07</td>
+              </tr>
+              <tr class="table__row">
+                <td class="table__cell">11270</td>
+                <td class="table__cell table__cell--wrap">ABRACADEIRA DE LATAO PARA FIXACAO DE CABO PARA-RAIO, DIMENSOES 32 X 24 X 24 MM</td>
+                <td class="table__cell">Insumo</td>
+                <td class="table__cell">UN</td>
+                <td class="table__cell">SP</td>
+                <td class="table__cell"><span class="badge badge--sem-desoneracao">Sem Desoneração</span></td>
+                <td class="table__cell">R$ 2,40</td>
+                <td class="table__cell">2026-07</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-section__footer">Mostrando 3 de 3 itens</div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="sidebar.js"></script>
+
+</body>
+</html>

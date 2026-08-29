@@ -1,0 +1,347 @@
+/* ==========================================================================
+   sidebar.css — Componente de sidebar (Carnegie Imóveis)
+   Depende dos tokens abaixo. Se este arquivo for usado em uma página que já
+   define esses tokens em outro CSS, este bloco pode ser removido daqui.
+   ========================================================================== */
+
+:root {
+  --color-black: #0d0e10;
+  --color-charcoal: #1d2025;
+  --color-charcoal-light: #262a31;
+  --color-surface: #16181c;
+  --color-border: #33373f;
+  --color-gray-500: #8a8f98;
+  --color-gray-300: #c7cbd1;
+  --color-white: #ffffff;
+  --color-blue: #2e4d7b;
+  --color-blue-light: #5c7ba8;
+
+  --sidebar-width: 264px;
+  --header-height: 64px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  --font-base: "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Sidebar — container fixo
+   ========================================================================== */
+
+.sidebar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--header-height));
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-charcoal);
+  border-right: 1px solid var(--color-border);
+  padding: 20px 0;
+  overflow-y: auto;
+  font-family: var(--font-base);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__section {
+  padding: 0 16px;
+}
+
+/* ---- Cabeçalho de cada grupo (agora é um botão clicável) -------------- */
+
+.sidebar__section-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 10px 8px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-blue-light);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar__section-toggle:hover {
+  background-color: var(--color-charcoal-light);
+  color: var(--color-white);
+}
+
+.sidebar__section-chevron {
+  display: inline-flex;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sidebar__section-chevron svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Gira a seta quando o grupo está aberto */
+.sidebar__section-toggle[aria-expanded="true"] .sidebar__section-chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- Submenu (lista de links de cada grupo) ---------------------------- */
+
+.sidebar__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease;
+}
+
+.sidebar__list--open {
+  max-height: 400px; /* alto o suficiente para caber qualquer grupo atual */
+}
+
+.sidebar__link {
+  position: relative;
+  display: block;
+  padding: 9px 12px 9px 16px;
+  margin-top: 2px;
+  border-radius: var(--radius-sm);
+  color: var(--color-gray-300);
+  text-decoration: none;
+  font-size: 13.5px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar__link:hover {
+  background-color: var(--color-charcoal-light);
+  color: var(--color-white);
+}
+
+.sidebar__link--active {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.sidebar__link--active::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-blue-light);
+}
+
+/* ==========================================================================
+   Rodapé da sidebar — nome do usuário + menu (três barrinhas)
+   ========================================================================== */
+
+.sidebar__footer {
+  position: relative;
+  padding: 16px 16px 0;
+  margin-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.sidebar__footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sidebar__footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.sidebar__footer-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.sidebar__footer-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.sidebar__footer-user {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__footer-role {
+  margin: 1px 0 0;
+  font-size: 11.5px;
+  color: var(--color-gray-500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botão de notificações (agora fora do menu de três barrinhas) */
+.sidebar__footer-notif-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--color-gray-300);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.sidebar__footer-notif-btn:hover {
+  background-color: var(--color-charcoal-light);
+  border-color: var(--color-blue-light);
+}
+
+.sidebar__footer-notif-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Botão "hambúrguer" (três barrinhas) */
+.sidebar__footer-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--color-gray-300);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.sidebar__footer-menu-btn:hover {
+  background-color: var(--color-charcoal-light);
+  border-color: var(--color-blue-light);
+}
+
+.sidebar__footer-menu-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Painel que aparece ao clicar nas três barrinhas */
+.sidebar__footer-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+
+  /* escondido por padrão */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+
+.sidebar__footer-menu--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.sidebar__footer-link {
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  color: var(--color-gray-300);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar__footer-link:hover {
+  background-color: var(--color-charcoal-light);
+  color: var(--color-white);
+}
+
+.sidebar__footer-logout {
+  padding: 9px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--color-white);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.sidebar__footer-logout:hover {
+  background-color: var(--color-blue);
+  border-color: var(--color-blue);
+}
+
+/* ==========================================================================
+   Ajuste no conteúdo principal para abrir espaço para a sidebar fixa
+   ========================================================================== */
+
+.content {
+  margin-left: var(--sidebar-width);
+}
